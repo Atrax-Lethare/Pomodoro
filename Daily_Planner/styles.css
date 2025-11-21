@@ -1,0 +1,289 @@
+/* --- CSS Variables & Reset --- */
+        :root {
+            --bg-color: #f4f6f8;
+            --text-color: #2d3748;
+            --card-bg: #ffffff;
+            --border-radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --primary-color: #4a5568;
+            
+            /* Quadrant Colors */
+            --q1-color: #e53e3e; /* Urgent & Important (Do) */
+            --q1-bg: #fff5f5;
+            --q2-color: #3182ce; /* Not Urgent & Important (Schedule) */
+            --q2-bg: #ebf8ff;
+            --q3-color: #d69e2e; /* Urgent & Not Important (Delegate) */
+            --q3-bg: #fffaf0;
+            --q4-color: #718096; /* Not Urgent & Not Important (Eliminate) */
+            --q4-bg: #f7fafc;
+
+            --frog-color: #38a169;
+            --frog-bg: #f0fff4;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 10px;
+        }
+
+        /* --- Layout --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .date-display {
+            color: #718096;
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+
+        /* --- Eat The Frog Section --- */
+        .frog-section {
+            background-color: var(--frog-bg);
+            border: 2px solid var(--frog-color);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+
+        .frog-section:hover {
+            transform: translateY(-2px);
+        }
+
+        .frog-icon {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .frog-input-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .frog-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #22543d;
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .frog-display.completed {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .frog-actions {
+            margin-top: 10px;
+        }
+
+        /* --- Eisenhower Matrix Grid --- */
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .matrix-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .quadrant {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            min-height: 350px;
+            border-top: 5px solid transparent;
+        }
+
+        .q1 { border-top-color: var(--q1-color); background: linear-gradient(to bottom, var(--q1-bg) 0%, #fff 15%); }
+        .q2 { border-top-color: var(--q2-color); background: linear-gradient(to bottom, var(--q2-bg) 0%, #fff 15%); }
+        .q3 { border-top-color: var(--q3-color); background: linear-gradient(to bottom, var(--q3-bg) 0%, #fff 15%); }
+        .q4 { border-top-color: var(--q4-color); background: linear-gradient(to bottom, var(--q4-bg) 0%, #fff 15%); }
+
+        .quadrant-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .quadrant-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #4a5568;
+        }
+        
+        .quadrant-subtitle {
+            font-size: 0.85rem;
+            color: #718096;
+            font-weight: normal;
+            display: block;
+        }
+
+        /* --- Tasks --- */
+        .task-list {
+            flex-grow: 1;
+            list-style: none;
+            padding: 5px;
+        }
+
+        .task-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: grab;
+            transition: all 0.2s;
+        }
+
+        .task-item:active {
+            cursor: grabbing;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+
+        .task-item.dragging {
+            opacity: 0.5;
+            background: #edf2f7;
+        }
+
+        .task-checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary-color);
+        }
+
+        .task-text {
+            flex-grow: 1;
+            word-break: break-word;
+        }
+
+        .task-item.completed .task-text {
+            text-decoration: line-through;
+            color: #a0aec0;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #cbd5e0;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0 5px;
+            transition: color 0.2s;
+        }
+
+        .delete-btn:hover {
+            color: var(--q1-color);
+        }
+
+        /* --- Inputs & Buttons --- */
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--q2-color);
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .btn-primary:hover { background-color: #2d3748; }
+
+        .btn-add {
+            width: 100%;
+            margin-top: 10px;
+            background-color: #edf2f7;
+            color: #4a5568;
+        }
+        .btn-add:hover { background-color: #e2e8f0; }
+
+        .btn-frog {
+            background-color: var(--frog-color);
+            color: white;
+        }
+        .btn-frog:hover { background-color: #2f855a; }
+
+        .clear-btn {
+            background-color: #fed7d7;
+            color: #c53030;
+            margin-top: 40px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .clear-btn:hover { background-color: #feb2b2; }
+
+        /* --- Drag Over State --- */
+        .quadrant.drag-over {
+            border: 2px dashed #cbd5e0;
+            background: #f7fafc;
+        }
+
+        /* Axis Labels for Matrix Context */
+        .axis-label {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            color: #a0aec0;
+            text-align: center;
+            font-weight: bold;
+        }

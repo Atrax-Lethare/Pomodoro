@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus & Matrix Planner</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Daily Planner</h1>
+            <div class="date-display" id="dateDisplay"></div>
+        </header>
+
+        <!-- EAT THE FROG SECTION -->
+        <section class="frog-section">
+            <span class="frog-icon">🐸</span>
+            <h2>Eat The Frog</h2>
+            <p style="color: #555; margin-bottom: 15px;">What is the <strong>one</strong> thing you <em>must</em> do today? Do it first.</p>
+            
+            <div id="frogInputArea">
+                <div class="frog-input-container">
+                    <input type="text" id="frogInput" placeholder="Enter your biggest task...">
+                    <button class="btn btn-frog" onclick="setFrog()">Set Frog</button>
+                </div>
+            </div>
+
+            <div id="frogDisplayArea" class="frog-display">
+                <input type="checkbox" id="frogCheckbox" class="task-checkbox" onchange="toggleFrog()">
+                <span id="frogText"></span>
+                <button class="delete-btn" onclick="clearFrog()" title="Clear Frog">×</button>
+            </div>
+        </section>
+
+        <!-- EISENHOWER MATRIX -->
+        <div class="matrix-grid">
+            <!-- Q1: Do -->
+            <div class="quadrant q1" id="q1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="quadrant-header">
+                    <div>
+                        <div class="quadrant-title">Do First</div>
+                        <span class="quadrant-subtitle">Urgent & Important</span>
+                    </div>
+                    <span style="font-size: 1.2rem; color: var(--q1-color);">⚡</span>
+                </div>
+                <ul class="task-list" id="list-q1"></ul>
+                <input type="text" id="input-q1" placeholder="Add urgent task..." onkeypress="handleEnter(event, 'q1')">
+                <button class="btn btn-add" onclick="addTask('q1')">+ Add Task</button>
+            </div>
+
+            <!-- Q2: Schedule -->
+            <div class="quadrant q2" id="q2" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="quadrant-header">
+                    <div>
+                        <div class="quadrant-title">Schedule</div>
+                        <span class="quadrant-subtitle">Not Urgent & Important</span>
+                    </div>
+                    <span style="font-size: 1.2rem; color: var(--q2-color);">📅</span>
+                </div>
+                <ul class="task-list" id="list-q2"></ul>
+                <input type="text" id="input-q2" placeholder="Add scheduled task..." onkeypress="handleEnter(event, 'q2')">
+                <button class="btn btn-add" onclick="addTask('q2')">+ Add Task</button>
+            </div>
+
+            <!-- Q3: Delegate -->
+            <div class="quadrant q3" id="q3" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="quadrant-header">
+                    <div>
+                        <div class="quadrant-title">Delegate</div>
+                        <span class="quadrant-subtitle">Urgent & Not Important</span>
+                    </div>
+                    <span style="font-size: 1.2rem; color: var(--q3-color);">🤝</span>
+                </div>
+                <ul class="task-list" id="list-q3"></ul>
+                <input type="text" id="input-q3" placeholder="Add task to delegate..." onkeypress="handleEnter(event, 'q3')">
+                <button class="btn btn-add" onclick="addTask('q3')">+ Add Task</button>
+            </div>
+
+            <!-- Q4: Delete -->
+            <div class="quadrant q4" id="q4" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="quadrant-header">
+                    <div>
+                        <div class="quadrant-title">Eliminate</div>
+                        <span class="quadrant-subtitle">Not Urgent & Not Important</span>
+                    </div>
+                    <span style="font-size: 1.2rem; color: var(--q4-color);">🗑️</span>
+                </div>
+                <ul class="task-list" id="list-q4"></ul>
+                <input type="text" id="input-q4" placeholder="Add task..." onkeypress="handleEnter(event, 'q4')">
+                <button class="btn btn-add" onclick="addTask('q4')">+ Add Task</button>
+            </div>
+        </div>
+
+        <button class="btn clear-btn" onclick="clearAllData()">Reset All Data</button>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
