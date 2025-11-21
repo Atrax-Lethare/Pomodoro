@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Flow | Pomodoro Timer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Mode Selector -->
+        <nav class="mode-selector">
+            <button class="mode-btn active" data-mode="pomodoro" onclick="setMode('pomodoro')">Focus</button>
+            <button class="mode-btn" data-mode="short" onclick="setMode('short')">Short Break</button>
+            <button class="mode-btn" data-mode="long" onclick="setMode('long')">Long Break</button>
+        </nav>
+
+        <!-- Timer Visualization -->
+        <div class="timer-container">
+            <svg class="progress-ring" width="300" height="300">
+                <circle class="progress-ring__circle-bg" stroke="var(--card-bg)" stroke-width="8" fill="transparent" r="140" cx="150" cy="150"/>
+                <circle class="progress-ring__circle" stroke="white" stroke-width="8" fill="transparent" r="140" cx="150" cy="150"/>
+            </svg>
+            <div class="time-display">
+                <div class="time-text" id="time">25:00</div>
+                <div class="status-text" id="status">Time to Focus</div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <button class="control-btn" onclick="resetTimer()" title="Reset">
+                <img
+                    src="replay-icon-with-long-shadow-on-blank-background-flat-design-Photoroom.png" 
+                    alt="replay"
+                    id="replay"
+                >
+            </button>
+            
+            <button class="control-btn primary" id="toggleBtn" onclick="toggleTimer()" title="Start/Pause">
+                <!-- Play Icon -->
+                <svg id="playIcon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                <!-- Pause Icon (Hidden by default) -->
+                <svg id="pauseIcon" style="display:none" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+            </button>
+        </div>
+
+        <!-- Task List -->
+        <div class="tasks-container">
+            <div class="task-input-group">
+                <input type="text" id="taskInput" class="task-input" placeholder="What are you working on?">
+                <button class="add-btn" onclick="addTask()">+</button>
+            </div>
+            <ul class="task-list" id="taskList">
+                <!-- Tasks will appear here -->
+            </ul>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
