@@ -1,8 +1,8 @@
 :root {
             --bg-color: #1e212d;
-            --card-bg: #2b2e3b;
-            --text-primary: #ffffff;
-            --text-secondary: #8b9bb4;
+            --card-bg: #d8dffd;
+            --text-primary: #000000;
+            --text-secondary: #000000a2;
             
             /* Theme Colors */
             --pomodoro: #ff6b6b;
@@ -22,8 +22,8 @@
         }
 
         body {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(pexels-printexstar-11654701.png);
-
+            background-color: #f4f6f8;
+            
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -76,7 +76,8 @@
         }
 
         .mode-btn:hover:not(.active) {
-            color: #fff;
+            color: #010000;
+            text-shadow: 10px 10px 20px rgba(0,0,0,0.3);
         }
 
         /* Timer Display with SVG Circle */
@@ -157,18 +158,8 @@
             font-size: 1.5rem;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             background-color: var(--card-bg);
-            color: var(--text-primary);
-        }
-
-        /* .control-btn.primary {
-            width: 60px;
-            height: 60px;
-            font-size: 2rem;
-         background-color: var(--current-color); 
             color: white;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            text-align: center;
-        } */
+        }
 
         .control-btn:active {
             transform: scale(0.95);
@@ -192,17 +183,18 @@
 
         .task-input {
             flex: 1;
-            background: rgba(255,255,255,0.05);
+            background: rgba(255,255,255,0.5);
             border: 1px solid transparent;
             padding: 12px 15px;
             border-radius: 8px;
-            color: white;
+            color: black;
             font-size: 1rem;
             outline: none;
         }
 
         .task-input:focus {
-            border-color: var(--current-color);
+            border: var(--current-color) 3px solid;
+
         }
 
         .add-btn {
@@ -273,20 +265,21 @@
         }
 
         #plan {
-            color: white;
+            color: var(--text-primary);
             text-decoration: none;
             margin-top: 20px;
             font-size: 1rem;
             transition: color 0.2s;
-            border-bottom: #ff6b6b 1px solid;
-            padding-bottom: 5px;
             padding: 5px 10px;
-            border-radius: 5px 5px 0 0;
-            transition: background-color 0.3s, color 0.3s;
+            transition: background-color 0.4s;
+            text-align: center;
+            font-weight: 500;
+            border-bottom: var(--current-color) 2px solid;
         }
-
+        
         #plan:hover {
-            background-color: rgba(255, 213, 136, 0.175);
+            border-radius: 5px;
+            background-color: var(--current-color);
         }
 
         @keyframes fadeIn {
