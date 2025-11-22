@@ -1,10 +1,11 @@
-:root {
-            --bg-color: #1e212d;
+        :root {
+            --bg-color: #f4f6f8;
             --card-bg: #d8dffd;
             --text-primary: #000000;
             --text-secondary: #000000a2;
             --border-color: #e5e7eb;
             --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --inp-color: #ffffff;
             
             /* Theme Colors */
             --pomodoro: #ff6b6b;
@@ -13,6 +14,20 @@
             
             /* Current active color (default to pomodoro) */
             --current-color: var(--pomodoro);
+
+            --icon-sun: #f59e0b;
+            --icon-moon: #1f2937;
+        }
+
+        body.dark-mode {
+            --bg-color: #111827;
+            --card-bg: #1f2937;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --border-color: #4b5563;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+            --inp-color: #374151;
+
         }
 
         * {
@@ -24,7 +39,7 @@
         }
 
         body {
-            background-color: #f4f6f8;
+            background-color: var(--bg-color);
             
             background-size: cover;
             background-position: center;
@@ -40,29 +55,21 @@
             padding: 20px;
         }
 
-        /* 2. Dark Mode Overrides */
-        [data-theme="dark"] {
-            --bg-color: #111827;
-            --card-bg: #1f2937;
-            --text-primary: #f9fafb;
-            --text-secondary: #9ca3af;
-            --border-color: #4b5563;
-            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
-        }
-
         /* 3. Toggle Button Styling */
-        .theme-toggle-wrapper {
+        .toggle-btn {
             position: absolute;
             top: 20px;
             right: 20px;
         }
 
-        .theme-btn {
+        .toggle-btn {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
+            width: 70px;
+            height: 40px;
             color: var(--text-primary);
             padding: 10px;
-            border-radius: 50%;
+            border-radius: 5px;
             cursor: pointer;
             box-shadow: var(--shadow);
             display: flex;
@@ -71,9 +78,28 @@
             transition: transform 0.2s ease;
         }
 
-        .theme-btn:hover {
+        .toggle-btn:hover {
             transform: scale(1.1);
         }
+
+        .icon {
+            width: 24px;
+            height: 24px;
+            display: none;
+        }
+
+        #sunIcon {
+            color: var(--icon-sun);
+        }
+
+        #moonIcon {
+            color: var(--icon-moon);
+            display: block;
+        }
+
+        /* Helper classes for JS toggling */
+        .show { display: block !important; }
+        .hide { display: none !important; }
 
         /* Main Container */
         .app-container {
@@ -220,11 +246,11 @@
 
         .task-input {
             flex: 1;
-            background: rgba(255,255,255,0.5);
+            background: var(--inp-color);
             border: 1px solid transparent;
             padding: 12px 15px;
             border-radius: 8px;
-            color: black;
+            color: var(--text-primary);
             font-size: 1rem;
             outline: none;
         }
