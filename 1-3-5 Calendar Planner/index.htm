@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1-3-5 Task Planner</title>
+    <!-- Using Google Fonts for Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- MODAL -->
+    <div id="info-modal" class="modal-backdrop">
+        <div class="modal-content" id="modal-inner">
+            <div class="flex-between mb-4" style="margin-bottom: 1rem;">
+                <h2 style="font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+                    <span id="icon-sparkles-modal" style="color: #f59e0b;"></span>
+                    The 1-3-5 Rule
+                </h2>
+                <button onclick="toggleModal(false)" style="background: none; border: none; font-size: 1.5rem; color: var(--text-light); cursor: pointer;">&times;</button>
+            </div>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.5;">
+                Stop your to-do list from spiraling out of control. On any given day, assume you can only accomplish <strong>9 things</strong> of varying difficulty:
+            </p>
+            
+            <div class="modal-row bg-red-subtle">
+                <div style="background: #fee2e2; color: #dc2626; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">1</div>
+                <div>
+                    <h3 style="font-weight: 700; color: #7f1d1d; font-size: 0.9rem;">Big Task</h3>
+                    <p style="font-size: 0.8rem; color: #991b1b;">The heavy lifting. Requires deep focus.</p>
+                </div>
+            </div>
+
+            <div class="modal-row bg-blue-subtle">
+                <div style="background: #dbeafe; color: #2563eb; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">3</div>
+                <div>
+                    <h3 style="font-weight: 700; color: #1e3a8a; font-size: 0.9rem;">Medium Tasks</h3>
+                    <p style="font-size: 0.8rem; color: #1e40af;">Important, but not critical.</p>
+                </div>
+            </div>
+
+            <div class="modal-row bg-green-subtle">
+                <div style="background: #dcfce7; color: #16a34a; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700;">5</div>
+                <div>
+                    <h3 style="font-weight: 700; color: #14532d; font-size: 0.9rem;">Small Tasks</h3>
+                    <p style="font-size: 0.8rem; color: #166534;">Quick wins, chores, or maintenance.</p>
+                </div>
+            </div>
+
+            <button onclick="toggleModal(false)" class="modal-btn">Got it, let's plan!</button>
+        </div>
+    </div>
+
+    <!-- APP LOADER -->
+    <div id="app-loader" class="loader-overlay">
+        <div class="spinner" style="margin-bottom: 1rem;"></div>
+        <p style="color: var(--text-muted); font-weight: 500;">Loading your planner...</p>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container" style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <div class="logo-box">1-3-5</div>
+                <h1 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main);">Tasks Planner</h1>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <!-- Progress -->
+                <div class="progress-container">
+                    <div class="progress-label" id="progress-text">0% Done</div>
+                    <div class="progress-track">
+                        <div id="progress-bar" class="progress-fill"></div>
+                    </div>
+                </div>
+
+                <button onclick="toggleModal(true)" class="icon-btn" title="What is 1-3-5?">
+                    <div id="icon-info-header"></div>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+        <div class="main-grid">
+            
+            <!-- LEFT COLUMN -->
+            <div class="flex-col gap-4">
+                <!-- Calendar Card -->
+                <div class="card">
+                    <div class="flex-between mb-4" style="margin-bottom: 1.5rem;">
+                        <h2 id="calendar-month-label" style="font-weight: 700; font-size: 1.125rem;"></h2>
+                        <div class="calendar-nav">
+                            <button onclick="changeMonth(-1)" class="nav-btn" id="icon-chevron-left"></button>
+                            <button onclick="changeMonth(1)" class="nav-btn" id="icon-chevron-right"></button>
+                        </div>
+                    </div>
+
+                    <div class="calendar-grid" style="margin-bottom: 0.5rem;">
+                        <div class="calendar-day-header">S</div>
+                        <div class="calendar-day-header">M</div>
+                        <div class="calendar-day-header">T</div>
+                        <div class="calendar-day-header">W</div>
+                        <div class="calendar-day-header">T</div>
+                        <div class="calendar-day-header">F</div>
+                        <div class="calendar-day-header">S</div>
+                    </div>
+                    
+                    <div id="calendar-grid" class="calendar-grid">
+                        <!-- JS Generated -->
+                    </div>
+                    
+                    <button onclick="jumpToToday()" class="btn-jump">Jump to Today</button>
+                </div>
+
+                <!-- Promo Card -->
+                <div class="promo-card">
+                    <div id="icon-trophy" style="margin-bottom: 0.75rem; color: #e0e7ff;"></div>
+                    <h3 style="font-weight: 700; font-size: 1.125rem; margin-bottom: 0.25rem;">Keep it up!</h3>
+                    <p style="font-size: 0.875rem; opacity: 0.9; line-height: 1.5;">
+                        Prioritizing is the key to productivity. Focus on that 1 Big Task first!
+                    </p>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN -->
+            <div>
+                <div class="flex-between" style="margin-bottom: 1.5rem; align-items: flex-end;">
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-muted); font-size: 0.875rem; font-weight: 500; margin-bottom: 0.25rem;">
+                            <span id="icon-calendar-header"></span>
+                            <span id="selected-date-weekday"></span>
+                        </div>
+                        <h2 id="selected-date-title" style="font-size: 2rem; font-weight: 700; color: var(--text-main); line-height: 1.2;">
+                            <!-- Today's Plan -->
+                        </h2>
+                    </div>
+                    <div id="save-indicator" class="saving-badge">
+                        <div class="spinner" style="width: 12px; height: 12px; border-width: 2px;"></div>
+                        Saving...
+                    </div>
+                </div>
+
+                <div class="flex-col gap-4 fade-in" id="tasks-container">
+                    
+                    <!-- Big Task -->
+                    <section>
+                        <div class="section-label label-red">
+                            <span id="icon-target"></span>
+                            <span>1 Big Task</span>
+                        </div>
+                        <div class="task-group border-red" id="container-big"></div>
+                    </section>
+
+                    <!-- Medium Tasks -->
+                    <section>
+                        <div class="section-label label-blue">
+                            <span id="icon-list-todo"></span>
+                            <span>3 Medium Tasks</span>
+                        </div>
+                        <div class="task-group border-blue" id="container-medium"></div>
+                    </section>
+
+                    <!-- Small Tasks -->
+                    <section>
+                        <div class="section-label label-green">
+                            <span id="icon-sparkles"></span>
+                            <span>5 Small Tasks</span>
+                        </div>
+                        <div class="task-group border-green" id="container-small"></div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
