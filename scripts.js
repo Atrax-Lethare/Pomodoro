@@ -158,6 +158,34 @@
             
             taskList.prepend(li);
             taskInput.value = '';
+}
+        
+let isDark = false;
+        const body = document.body;
+        const btnText = document.getElementById('btnText');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+
+        function toggleTheme() {
+            isDark = !isDark;
+            
+            // We only need to toggle the class. CSS Variables handle the rest!
+            body.classList.toggle('dark-mode');
+
+            if (isDark) {
+                moonIcon.classList.replace('show', 'hide'); // Handle initial state fallback
+                if(!moonIcon.classList.contains('hide')) moonIcon.style.display = 'none'; // Safety for inline styles
+                
+                moonIcon.classList.add('hide');
+                sunIcon.classList.remove('hide');
+                sunIcon.classList.add('show');
+            } else {
+                sunIcon.classList.replace('show', 'hide');
+                
+                sunIcon.classList.add('hide');
+                moonIcon.classList.remove('hide');
+                moonIcon.classList.add('show');
+            }
         }
 
         // Initial setup
